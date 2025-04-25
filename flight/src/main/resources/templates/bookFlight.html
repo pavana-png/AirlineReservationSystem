@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Book A Flight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <button onclick="goBack()" type="button" class="btn btn-outline-primary mr-2">
+        <span class="fa fa-arrow-left"></span>
+    </button>
+    <button onclick="goForward()" type="button" class="btn btn-outline-primary">
+        <span class="fa fa-arrow-right"></span>
+    </button>
+    <div class="row justify-content-center"> <!-- Center the content -->
+        <div class="col-md-6"> <!-- Adjust the column width to your preference -->
+            <div class="card border-dark mb-3">
+                <div class="card-header">Flight Details</div>
+                <div class="card-body text-dark">
+                    <form th:action="@{/flights/book-flight}" method="post">
+                        <!-- <input type="hidden" name="id" th:value="${id}" /> -->
+                        <div th:if="${ticket != null}">
+                            <div class="form-group">
+                                <label class="col-form-label">From:</label>
+                                <span style="font-weight: bold;" th:text="${ticket.originCity}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">To:</label>
+                                <span style="font-weight: bold;" th:text="${ticket.destinationCity}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Airline:</label>
+                                <span style="font-weight: bold;" th:text="${ticket.airline}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Available Seats:</label>
+                                <span style="font-weight: bold;" th:text="${ticket.availableSeats}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Number Of Connections:</label>
+                                <span style="font-weight: bold;" th:text="${ticket.numberOfConnections}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" >Ticket Price($): </label>
+                                <span style="font-weight: bold;" id="ticketPrice" th:text="${ticket.ticketPrice}"></span>
+                                <select onchange="changeCurrency(this.value)" name="desiredCur">
+                                    <option value="" disabled selected>Select Currency</option>
+                                    <option th:each="code : ${codes}" th:text="${code}" th:value="${code}"></option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="id" th:value="${ticket.id}">
+
+                            <div class="form-group">
+                                <button type="submit" class="ticketPrice btn btn-success btn-lg btn-block" id="payButton" th:text="'Pay ' + ${ticket.ticketPrice}">Pay</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">Your Ticket purchase was successful!</div>
+            </div>
+        </div>
+    </div>
+</th:block>
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
+
+    function goForward() {
+        window.history.forward();
+    }
+
+    async function changeCurrency(desiredCur) {
+      try {
+        // var ticketId = "[[${param.id}]]";
+        var ticketId = "[[${ticket.id}]]";
+
+
+        const response = await fetch(`/api/currency/convert/${ticketId}?desiredCur=${desiredCur}`);
+
+         const data = await response.json();
+         const convertedPrice = data
+         document.getElementById('ticketPrice').innerText = convertedPrice;
+         document.getElementById('payButton').innerText = 'Pay ' + convertedPrice;
+      } catch (error) {
+         console.error('Error converting currency:', error);
+      }
+    }
+</script>
+</body>
+</html>

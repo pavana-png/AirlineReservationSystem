@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Waypoints in Directions</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body>
+<div id="container">
+    <div id="map"></div>
+    <div id="sidebar">
+        <div th:if="${flights != null}">
+            <b>Start:</b>
+            <select class="form-control" id="originCity" name="origin">
+                <option th:each="flight, i:${flights}" th:text="${flight.originCity}" th:value="${flight.originCity}"></option>
+            </select>
+            <br />
+            <b>Waypoints:</b> <br />
+            <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br />
+            <select multiple id="waypoints">
+                <option value="montreal, quebec">Montreal, QBC</option>
+                <option value="toronto, ont">Toronto, ONT</option>
+                <option value="chicago, il">Chicago</option>
+                <option value="winnipeg, mb">Winnipeg</option>
+                <option value="fargo, nd">Fargo</option>
+                <option value="calgary, ab">Calgary</option>
+                <option value="spokane, wa">Spokane</option>
+            </select>
+            <br />
+            <b>End:</b>
+            <select class="form-control" id="destinationCity" name="destination">
+                <option th:each="flight, i:${flights}" th:text="${flight.destinationCity}" th:value="${flight.destinationCity}"></option>
+            </select>
+            <br />
+            <input type="submit" id="submit" />
+            <button onclick="goBack()" type="button" class="btn btn-outline-primary mr-2">
+                <span class="fa fa-arrow-left"></span>
+            </button>
+            <button onclick="goForward()" type="button" class="btn btn-outline-primary">
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+        <div id="directions-panel"></div>
+    </div>
+</div>
+
+<!--
+  The `defer` attribute causes the callback to execute after the full HTML
+  document has been parsed. For non-blocking uses, avoiding race conditions,
+  and consistent behavior across browsers, consider loading using Promises.
+  See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+  for more information.
+  -->
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
+
+    function goForward() {
+        window.history.forward();
+    }
+</script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvcluySCLuXyKovkbT2HkuhAPD6t6DOH4&callback=initMap&v=weekly"
+        defer
+></script>
+</body>
+</html>

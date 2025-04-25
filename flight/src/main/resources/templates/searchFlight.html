@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Book A Flight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+
+<body>
+<th:block layout:fragment="content">
+        <div class="row">
+            <div class="col-md-12" style="margin-bottom: 10px">
+                <h1 style="color: darkblue">Search for Flight</h1>
+                <button onclick="goBack()" type="button" class="btn btn-outline-primary mr-2">
+                    <span class="fa fa-arrow-left"></span>
+                </button>
+                <button onclick="goForward()" type="button" class="btn btn-outline-primary">
+                    <span class="fa fa-arrow-right"></span>
+                </button>
+            </div>
+        </div>
+    <form th:action="@{/flights/search}" method="post">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="originCity">From</label>
+                <select class="form-control" id="originCity" name="originCity">
+                    <option th:each="flight, i:${flights}" th:text="${flight.originCity}" th:value="${flight.originCity}"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="destinationCity">To</label>
+                <span th:if="${DestinationError!=null}" th:text="${DestinationError}"
+                      class="badge badge-danger"></span>
+                <select class="form-control" id="destinationCity" name="destinationCity">
+                    <option th:each="flight, i:${flights}" th:text="${flight.destinationCity}" th:value="${flight.destinationCity}"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ticketPrice">Price Option:</label>
+                <select class="form-control" id="ticketPrice" name="order">
+                    <option value="asc">Highest to Lowest</option>
+                    <option value="desc">Lowest to Highest</option>
+                </select>
+            </div>
+
+            <div class="form-group col-12">
+                <button type="submit" class="btn btn-success" style="float: right">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <th:block th:if="${notFound != null}">
+        <div class="col-12">
+            <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
+        </div>
+    </th:block>
+    <th:block th:if="${results != null}">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-6">
+                <h1 style="color: darkblue">Result </h1>
+            </div>
+
+        </div>
+            <table class="table table-sm">
+                <thead>
+                <tr class="table-active">
+                    <th scope="col">ID</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Airline</th>
+                    <th scope="col">Available Seats</th>
+                    <th scope="col">Connections</th>
+                    <th scope="col">Ticket Price($)</th>
+                    <th scope="col">Book Ticket</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="flight, iterStat:${results}">
+                    <tr style="background-color: #fdfdfd">
+                        <th scope="row" th:text="${flight.id}">Dark</th>
+                        <td th:text="${flight.originCity}"></td>
+                        <td th:text="${flight.destinationCity}"></td>
+                        <td th:text="${flight.airline}"></td>
+                        <td th:text="${flight.availableSeats}"></td>
+                        <td th:text="${flight.numberOfConnections}"></td>
+                        <td style="cursor: pointer;" th:text="'$' + ${flight.ticketPrice}">
+                            <a th:href="@{/book-flight/{flight.id}}">...</a>
+                        </td>
+                        <td><a type="button" class="btn btn-primary btn-sm"
+                               th:if="${flight.availableSeats > 0}"
+                               th:href="@{/flights/book-flight(id=${flight.id})}">Book Flight</a>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </th:block>
+</th:block>
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
+
+    function goForward() {
+        window.history.forward();
+    }
+</script>
+</body>
+</html>

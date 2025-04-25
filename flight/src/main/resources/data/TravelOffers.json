@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "originCity": "New York",
+    "destinationCity": "Los Angeles",
+    "airline": "Delta Airlines",
+    "availableSeats": 150,
+    "numberOfConnections": 1,
+    "ticketPrice": 250.00
+  },
+  {
+    "id": 2,
+    "originCity": "Los Angeles",
+    "destinationCity": "San Francisco",
+    "airline": "United Airlines",
+    "availableSeats": 100,
+    "numberOfConnections": 0,
+    "ticketPrice": 180.00
+  },
+  {
+    "id": 3,
+    "originCity": "Chicago",
+    "destinationCity": "Miami",
+    "airline": "American Airlines",
+    "availableSeats": 200,
+    "numberOfConnections": 2,
+    "ticketPrice": 300.00
+  },
+  {
+    "id": 4,
+    "originCity": "Miami",
+    "destinationCity": "Seattle",
+    "airline": "Alaska Airlines",
+    "availableSeats": 120,
+    "numberOfConnections": 1,
+    "ticketPrice": 350.00
+  },
+  {
+    "id": 5,
+    "originCity": "Seattle",
+    "destinationCity": "Boston",
+    "airline": "JetBlue Airways",
+    "availableSeats": 180,
+    "numberOfConnections": 1,
+    "ticketPrice": 280.00
+  },
+  {
+    "id": 6,
+    "originCity": "Boston",
+    "destinationCity": "Denver",
+    "airline": "Southwest Airlines",
+    "availableSeats": 160,
+    "numberOfConnections": 0,
+    "ticketPrice": 220.00
+  },
+  {
+    "id": 7,
+    "originCity": "Denver",
+    "destinationCity": "Dallas",
+    "airline": "Frontier Airlines",
+    "availableSeats": 140,
+    "numberOfConnections": 0,
+    "ticketPrice": 200.00
+  },
+  {
+    "id": 8,
+    "originCity": "Dallas",
+    "destinationCity": "Houston",
+    "airline": "Spirit Airlines",
+    "availableSeats": 170,
+    "numberOfConnections": 0,
+    "ticketPrice": 190.00
+  },
+  {
+    "id": 9,
+    "originCity": "Houston",
+    "destinationCity": "Atlanta",
+    "airline": "Delta Airlines",
+    "availableSeats": 190,
+    "numberOfConnections": 0,
+    "ticketPrice": 230.00
+  },
+  {
+    "id": 10,
+    "originCity": "Atlanta",
+    "destinationCity": "Orlando",
+    "airline": "American Airlines",
+    "availableSeats": 150,
+    "numberOfConnections": 0,
+    "ticketPrice": 180.00
+  },
+  {
+    "id": 11,
+    "originCity": "Orlando",
+    "destinationCity": "Las Vegas",
+    "airline": "Southwest Airlines",
+    "availableSeats": 200,
+    "numberOfConnections": 1,
+    "ticketPrice": 320.00
+  },
+  {
+    "id": 12,
+    "originCity": "Las Vegas",
+    "destinationCity": "Phoenix",
+    "airline": "Allegiant Air",
+    "availableSeats": 130,
+    "numberOfConnections": 0,
+    "ticketPrice": 210.00
+  },
+  {
+    "id": 13,
+    "originCity": "Phoenix",
+    "destinationCity": "San Diego",
+    "airline": "Sun Country Airlines",
+    "availableSeats": 180,
+    "numberOfConnections": 0,
+    "ticketPrice": 240.00
+  },
+  {
+    "id": 14,
+    "originCity": "San Diego",
+    "destinationCity": "Portland",
+    "airline": "Alaska Airlines",
+    "availableSeats": 160,
+    "numberOfConnections": 1,
+    "ticketPrice": 270.00
+  },
+  {
+    "id": 15,
+    "originCity": "Portland",
+    "destinationCity": "Minneapolis",
+    "airline": "Delta Airlines",
+    "availableSeats": 140,
+    "numberOfConnections": 1,
+    "ticketPrice": 260.00
+  },
+  {
+    "id": 16,
+    "originCity": "Minneapolis",
+    "destinationCity": "Detroit",
+    "airline": "American Airlines",
+    "availableSeats": 170,
+    "numberOfConnections": 0,
+    "ticketPrice": 220.00
+  },
+  {
+    "id": 17,
+    "originCity": "Detroit",
+    "destinationCity": "Philadelphia",
+    "airline": "Frontier Airlines",
+    "availableSeats": 190,
+    "numberOfConnections": 0,
+    "ticketPrice": 230.00
+  },
+  {
+    "id": 18,
+    "originCity": "Philadelphia",
+    "destinationCity": "Charlotte",
+    "airline": "American Airlines",
+    "availableSeats": 150,
+    "numberOfConnections": 0,
+    "ticketPrice": 180.00
+  },
+  {
+    "id": 19,
+    "originCity": "Charlotte",
+    "destinationCity": "Washington D.C.",
+    "airline": "JetBlue Airways",
+    "availableSeats": 200,
+    "numberOfConnections": 0,
+    "ticketPrice": 240.00
+  },
+  {
+    "id": 20,
+    "originCity": "Washington D.C.",
+    "destinationCity": "New York",
+    "airline": "United Airlines",
+    "availableSeats": 180,
+    "numberOfConnections": 0,
+    "  ": 220.00
+  }
+]

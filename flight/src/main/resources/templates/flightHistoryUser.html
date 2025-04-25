@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Flights</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-6">
+            <h1 style="color: darkblue">Booked Tickets</h1>
+        </div>
+    </div>
+
+    <table class="table table-sm">
+        <thead>
+        <tr class="table-active">
+            <th scope="col">ID</th>
+            <th scope="col">Departure</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">Airline</th>
+            <th scope="col">Available Seats</th>
+            <th scope="col">Connections</th>
+            <th scope="col">Ticket Price($)</th>
+            <th scope="col">Cancel Ticket</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="flight, iterStat:${flights}">
+            <tr style="background-color: #fdfdfd">
+                <th scope="row" th:text="${flight.id}">Dark</th>
+                <td th:text="${flight.originCity}"></td>
+                <td th:text="${flight.destinationCity}"></td>
+                <td th:text="${flight.airline}"></td>
+                <td th:text="${flight.availableSeats}"></td>
+                <td th:text="${flight.numberOfConnections}"></td>
+                <td>
+                    <a th:href="@{/flights/convertPrice(id=${flight.id})}" style="cursor: pointer;" th:text="${flight.ticketPrice}"></a>
+                </td>
+                <td><a type="button" class="btn btn-danger btn-sm"
+                       th:if="${flight.availableSeats > 0}"
+                    th:href="@{/flights/cancel-flight(id=${flight.id})}">Cancel Flight</a>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+</th:block>
+</body>
+</html>

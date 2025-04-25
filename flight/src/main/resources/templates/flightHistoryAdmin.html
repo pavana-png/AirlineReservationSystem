@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Flights</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-6">
+            <h1 style="color: darkblue">Admin - Booked Tickets</h1>
+        </div>
+        <div class="col-md-6">
+            <form th:action="@{/admin/bookedTickets/clear}" method="post">
+                <button type="submit" class="btn btn-outline-danger" style="display: inline-block; margin-left: 550px; margin-top: 10px;">Clear Tickets</button>
+                <input type="hidden" name="clear" value="true">
+            </form>
+        </div>
+    </div>
+    <table class="table table-sm">
+        <thead>
+        <tr class="table-active">
+            <th scope="col" style="text-align: center;">User Email</th>
+            <th scope="col" style="text-align: center;">Ticket Details</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="result, iterStat:${results}">
+            <tr style="background-color: #fdfdfd">
+                <td style="text-align: center;" th:text="${#strings.arraySplit(result, '-')[0]}"></td>
+                <td style="text-align: center;" th:text="${#strings.arraySplit(result, '-')[1]}"></td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+</th:block>
+</body>
+</html>

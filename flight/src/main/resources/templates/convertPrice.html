@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Convert Ticket</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+
+<body>
+<th:block layout:fragment="content">
+<!--        <div class="row">
+            <div class="col-md-12" style="margin-bottom: 10px">
+                <h1 style="color: darkblue">Convert Ticket Price</h1>
+            </div>
+        </div>-->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center" style="color: darkblue">Convert Ticket Price</h1>
+                <form th:action="@{/flights/convertCurrency}" method="post">
+                    <div th:if="${param.id != null}">
+                        <input type="hidden" name="id" th:value="${param.id}" />
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="toCur">Currency To:</label>
+                        <select class="form-control" id="toCur" name="desiredCur">
+                            <option th:each="code, i:${codes.CurrConv}" th:text="${code}" th:value="${code.code}"></option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-lg">Convert</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--<form th:action="@{/flights/convertCurrency}" method="post">
+        <div th:if="${param.id != null}">
+            <input type="hidden" name="id" th:value="${param.id}" />
+        </div>
+        <div class="row">
+            &lt;!&ndash;<div class="form-group col-md-4">
+                <label class="col-form-label" for="fromCur">From</label>
+                <select class="form-control" id="fromCur" name="baseCur">
+                    <option th:each="code, i:${codes.CurrConv}" th:text="${code}" th:value="${code.code}"></option>
+                </select>
+            </div> &ndash;&gt;
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="toCur">To</label>
+                <select class="form-control" id="toCur" name="desiredCur">
+                    <option th:each="code, i:${codes.CurrConv}" th:text="${code}" th:value="${code.code}"></option>
+                </select>
+            </div>
+            <div class="form-group col-lg-12 text-center">
+                <button type="submit" class="btn btn-success btn-lg">Convert</button>
+            </div>
+        </div>
+    </form>-->
+
+    <th:block th:if="${notFound != null}">
+        <div class="col-12">
+            <p style="text-align: center; margin-top: 30px; color: red; font-weight: bold">No Record Found!</p>
+        </div>
+    </th:block>
+    <th:block th:if="${ticket != null}">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-6">
+                <h1 style="color: darkblue">Result </h1>
+            </div>
+        </div>
+        <table class="table table-sm">
+            <thead>
+                <tr class="table-active">
+                    <th scope="col">ID</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Airline</th>
+                    <th scope="col">Available Seats</th>
+                    <th scope="col">Connections</th>
+                    <th scope="col">Ticket Price($)</th>
+                    <th scope="col">Book Ticket</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: #fdfdfd" >
+                   <th scope="row" th:text="${ticket.id}">Dark</th>
+                   <td th:text="${ticket.originCity}"></td>
+                   <td th:text="${ticket.destinationCity}"></td>
+                   <td th:text="${ticket.airline}"></td>
+                   <td th:text="${ticket.availableSeats}"></td>
+                   <td th:text="${ticket.numberOfConnections}"></td>
+                   <td style="cursor: pointer;" th:text="${ticket.ticketPrice}">
+                       <a th:href="@{/book-flight/{ticket.id}}">...</a>
+                   </td>
+                   <td><a type="button" class="btn btn-primary btn-sm"
+                          th:if="${ticket.availableSeats > 0}"
+                          th:href="@{/flights/book-flight(id=${ticket.id})}">Book Flight</a>
+                   </td>
+                </tr>
+            </tbody>
+        </table>
+    </th:block>
+</th:block>
+</body>
+</html>

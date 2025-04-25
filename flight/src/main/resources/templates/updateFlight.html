@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Admin - Add Flight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+
+<body>
+<th:block layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12" style="margin-bottom: 10px">
+            <h1 style="color: darkblue">Update Travel Offer </h1>
+            <button onclick="goBack()" type="button" class="btn btn-outline-primary mr-2">
+                <span class="fa fa-arrow-left"></span>
+            </button>
+            <button onclick="goForward()" type="button" class="btn btn-outline-primary">
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Travel Offer Updated!</div>
+    </div>
+    <form th:action="@{/admin/flight}" method="put" th:object="${flight}">
+        <div th:if="${param.id != null}">
+            <input type="hidden" name="id" th:value="${param.id}" />
+        </div>
+        <div class="row">
+            <div class="from-group col-md-4">
+                <label class="col-form-label">Origin City</label>
+                <p>
+                    <input type="text" name="originCity" class="form-control"
+                           placeholder="Origin City" required autofocus/>
+                </p>
+            </div>
+
+            <div class="from-group col-md-4">
+                <label class="col-form-label">Destination City</label>
+                <p>
+                    <input type="text" name="destinationCity" class="form-control"
+                           placeholder="Destination City" required autofocus/>
+                </p>
+            </div>
+
+            <div class="from-group col-md-4">
+                <label class="col-form-label">Airline</label>
+                <p>
+                    <input type="text" name="airline" class="form-control"
+                           placeholder="Airline" required autofocus/>
+                </p>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="col-form-label">Available Seats</label>
+                <input type="number" class="form-control"
+                       name="availableSeats"  required>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="col-form-label" for="numberOfConnections">Number Of Connections</label>
+                <input type="number" class="form-control" id="numberOfConnections"
+                       name="numberOfConnections" required>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="col-form-label" for="ticketPrice">Ticket Price</label>
+                <input type="number" class="form-control" id="ticketPrice"
+                       name="ticketPrice" required>
+            </div>
+            <div class="form-group col-lg-12 text-center">
+                <button type="submit" class="btn btn-success btn-lg">Save</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-sm">
+        <thead>
+        <tr class="table-active">
+            <th scope="col">ID</th>
+            <th scope="col">Departure</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">Airline</th>
+            <th scope="col">Available Seats</th>
+            <th scope="col">Connections</th>
+            <th scope="col">Ticket Price</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="flight, iterStat:${flights}">
+            <tr style="background-color: #fdfdfd">
+                <th scope="row" th:text="${flight.id}">Dark</th>
+                <td th:text="${flight.originCity}"></td>
+                <td th:text="${flight.destinationCity}"></td>
+                <td th:text="${flight.airline}"></td>
+                <td th:text="${flight.availableSeats}"></td>
+                <td th:text="${flight.numberOfConnections}"></td>
+                <td>
+                    <a th:href="@{/flights/convertPrice(id=${flight.id})}" style="cursor: pointer;" th:text="${flight.ticketPrice}"></a>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+</th:block>
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
+
+    function goForward() {
+        window.history.forward();
+    }
+</script>
+</body>
+</html>
